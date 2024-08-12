@@ -20,4 +20,8 @@ echo "Downloading generate_data.py..."
 curl -o generate_data.py $BASE_URL/generate_data.py
 chmod +x generate_data.py
 
+echo "Downloading run_predict_save.sh..."
+curl -o run_predict_save.sh $BASE_URL/run_predict_save.sh
+chmod +x run_predict_save.sh
+
 echo "Download complete."
