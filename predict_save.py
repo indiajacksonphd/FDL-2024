@@ -58,16 +58,14 @@ def predict_and_plot(model, data, inputs_save_path, predictions_save_path):
     # Save predictions to CSV
     df = pd.DataFrame({'Actual': data[:, -1], 'Predicted': predictions})
     df.to_csv(predictions_save_path, index=False)
-    upload_to_gcloud('hl-geo', 'india-jackson-1', f'predictions_{current_datetime}.csv',
-                     f'remote_vm_test/predictions/predictions_{current_datetime}.csv')
+    upload_to_gcloud('hl-geo', 'india-jackson-1', f'predictions_{current_datetime}.csv', f'remote_vm_test/predictions/predictions_{current_datetime}.csv')
 
     print(f"Predictions saved to {predictions_save_path}")
 
     # Save inputs to CSV
     inputs_df = pd.DataFrame(data, columns=[f"feature_{i+1}" for i in range(data.shape[1])])
     inputs_df.to_csv(inputs_save_path, index=False)
-    upload_to_gcloud('hl-geo', 'india-jackson-1', f'inputs_{current_datetime}.csv',
-                     f'remote_vm_test/inputs/inputs_{current_datetime}.csv')
+    upload_to_gcloud('hl-geo', 'india-jackson-1', f'inputs_{current_datetime}.csv', f'remote_vm_test/inputs/inputs_{current_datetime}.csv')
 
     print(f"Inputs saved to {inputs_save_path}")
 
@@ -81,7 +79,7 @@ if __name__ == "__main__":
 
     current_datetime = get_current_datetime()
     predictions = predict_and_plot(model, inputs, f'inputs_{current_datetime}.csv',f'predictions_{current_datetime}.csv')
-    subprocess.run(["python", "save_outputs.py"], check=True)
+    # subprocess.run(["python", "save_outputs.py"], check=True)
 
     plt.figure(figsize=(10, 5))
     plt.plot(times[10:], data[10:], label='Actual')
@@ -90,5 +88,7 @@ if __name__ == "__main__":
     plt.xlabel("Time")
     plt.ylabel("Amplitude")
     plt.legend()
-    plt.show()
+    plt.savefig(f'time_series_{current_datetime}.png')
+    upload_to_gcloud('hl-geo', 'india-jackson-1', f'time_series_{current_datetime}.png', f'remote_vm_test/graphs/time_series_{current_datetime}.png')
+
 
