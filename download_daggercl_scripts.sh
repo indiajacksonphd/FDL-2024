@@ -13,7 +13,7 @@ curl -o sec.py $BASE_URL/sec.py
 chmod +x sec.py
 
 echo "Downloading save_outputs.py..."
-curl -o run_supermag_5m.py $BASE_URL/run_supermag_5m.py
+curl -o run_supermag_5m.py $BASE_URL/run_supermag_5m.sh
 chmod +x run_supermag_5m.py
 
 echo "Download complete."
